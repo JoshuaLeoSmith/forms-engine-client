@@ -1,0 +1,46 @@
+.stepper-wrapper{
+  align-items: center;
+  margin-top: 1rem;
+}
+.add.step {
+  display: table;
+  margin: 0 auto;
+}
+
+.add:hover{
+  cursor: pointer;
+  color: green;
+}
+
+i{
+  font-size:2rem;
+}
+
+i{
+  font-size:1.25rem;
+}
+
+i:hover{
+  cursor:pointer;
+  color:green;
+}
+
+.mat-stepper{
+  background:transparent;
+}
+
+.mat-list-item:hover{
+  cursor: pointer;
+  background-color:rgb(224, 224, 224);
+  
+}
+
+.mat-list-item {
+  width: auto; /* Adjust the width as needed */
+  // max-width: 200px; /* Optional: Set a maximum width */
+  border: solid black 1px;
+  border-radius: 2px;
+}
+.list-item-wrapper{
+  display: flex;
+}

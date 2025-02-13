@@ -1,0 +1,35 @@
+<span (click)="this.addStep()" class="add step">
+    <i class="pi pi-plus-circle"></i>&nbsp; Add step
+</span>
+<div class="stepper-wrapper">
+    <mat-stepper class="mat-stepper" *ngIf="this.steps && this.steps.length > 0" [animationDuration]="'0ms'" [linear]="false" #stepper>
+        <mat-step *ngFor="let step of steps; index as i;" [stepControl]="firstFormGroup">
+
+            <ng-template matStepLabel>
+                {{ step.title ? step.title : "Step "+(i + 1) }} &nbsp;
+            </ng-template>
+            <input type="text" [(ngModel)]="step.title" placeholder="Step Title" class="form-control" required>
+            &nbsp;<i (click)="deleteStep(i)" class="pi pi-trash"></i>
+
+            <div class="tab-wrapper">
+                <mat-list role="list">
+                    <div class="list-item-wrapper">
+                        <mat-list-item class="mat-list-item" role="listitem">Item 1</mat-list-item>
+                    </div>
+                    <div class="list-item-wrapper">
+                        <mat-list-item class="mat-list-item" role="listitem">Item 34433</mat-list-item>
+                    </div>
+                    <div class="list-item-wrapper">
+                        <mat-list-item class="mat-list-item" role="listitem">Item 3</mat-list-item>
+                    </div>
+                    <span (click)="this.addTab()" class="add tab">
+                        <i class="pi pi-plus-circle"></i>&nbsp; Add tab
+                    </span>
+                
+                  </mat-list>
+            </div>
+
+
+          </mat-step>
+    </mat-stepper>
+</div>
