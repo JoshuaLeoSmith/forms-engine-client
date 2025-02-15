@@ -9,7 +9,11 @@
                 {{ step.title ? step.title : "Step "+(i + 1) }} &nbsp;
             </ng-template>
             <input type="text" [(ngModel)]="step.title" placeholder="Step Title" class="form-control" required>
-            &nbsp;<i (click)="deleteStep(i)" class="pi pi-trash"></i>
+            &nbsp;
+            <i (click)="shiftStepLeft(i)" class="pi pi-arrow-circle-left"></i>
+            <i (click)="deleteStep(i)" class="pi pi-trash"></i>
+            <i (click)="shiftStepRight(i)" class="pi pi-arrow-circle-right"></i>
+
 
             <div class="tab-wrapper">
                 <mat-list role="list">
