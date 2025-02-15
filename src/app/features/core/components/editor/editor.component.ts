@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTabGroup } from '@angular/material/tabs';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-editor',
@@ -70,6 +71,7 @@ export class EditorComponent {
 
 
   addTab(){
+    this.steps[this.stepper!.selectedIndex].tabs.push({title: "Tab "+(this.steps[this.stepper!.selectedIndex].tabs.length+1), sections: []});
   }
 
   deleteStep(index:number){
