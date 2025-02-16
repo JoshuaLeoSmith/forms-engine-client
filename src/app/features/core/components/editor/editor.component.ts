@@ -9,6 +9,7 @@ import {MatListModule} from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTabGroup } from '@angular/material/tabs';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { Tab } from '../../models/tab';
 
 @Component({
   selector: 'app-editor',
@@ -18,7 +19,7 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class EditorComponent {
   steps:Step[] = [];
-  tabs:any = [];
+  tabs:Tab[] = [];
   sections:any=[];
   questions:any=[];
 
@@ -70,8 +71,19 @@ export class EditorComponent {
   }
 
 
-  addTab(){
-    this.steps[this.stepper!.selectedIndex].tabs.push({title: "Tab "+(this.steps[this.stepper!.selectedIndex].tabs.length+1), sections: []});
+  addTab(stepIndex:number){
+    while(true){
+      let id = this.generateRandomId();
+      if(this.tabs.filter(tab=>tab.id===id).length===0){
+        this.tabs.push(new Tab(id, "Tab "+(this.steps[stepIndex].tabs.length+1), []));
+        this.steps[stepIndex].tabs.push(this.tabs[this.tabs.length-1]);
+        break;
+      }
+    }
+  }
+
+  deleteTab(index:number){
+    this.steps[this.stepper!.selectedIndex].tabs.splice(index,1);
   }
 
   deleteStep(index:number){

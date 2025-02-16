@@ -17,14 +17,17 @@
 
             <div class="tab-wrapper">
                 <mat-list role="list">
-                    <div *ngFor="let tab of step.tabs" class="list-item-wrapper">
-                        <span class="delete tab">
-                            <i class="pi pi-trash"></i>
-                            </span>
-                        <mat-list-item class="mat-list-item" role="listitem">Item 1</mat-list-item>
+                    <div class="list-item-wrapper-wrapper">
+                    
+                    <div *ngFor="let tab of step.tabs; index as j;" class="list-item-wrapper">
+                        <mat-list-item class="mat-list-item" role="listitem">{{ tab.title }}</mat-list-item>
+                        <span class="delete-tab">
+                            <i (click)="deleteTab(j)" class="pi pi-trash"></i>
+                        </span>
                     </div>
 
-                    <span (click)="this.addTab()" class="add tab">
+                    </div>
+                    <span (click)="this.addTab(i)" class="add tab">
                         <i class="pi pi-plus-circle"></i>&nbsp; Add tab
                     </span>
                 
