@@ -8,7 +8,6 @@ import { MatInputModule } from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTabGroup } from '@angular/material/tabs';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { Tab } from '../../models/tab';
 
 @Component({

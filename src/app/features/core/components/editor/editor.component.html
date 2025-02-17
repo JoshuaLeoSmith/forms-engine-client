@@ -20,8 +20,9 @@
                     <div class="list-item-wrapper-wrapper">
                     
                     <div *ngFor="let tab of step.tabs; index as j;" class="list-item-wrapper">
-                        <mat-list-item class="mat-list-item" role="listitem">{{ tab.title }}</mat-list-item>
+                        <mat-list-item class="mat-list-item" role="listitem"><p class="p-list-item">{{tab.title}}</p></mat-list-item>
                         <span class="delete-tab">
+                            <input type="text" [(ngModel)]="tab.title" placeholder="Tab Title" class="form-control width-auto" required>
                             <i (click)="deleteTab(j)" class="pi pi-trash"></i>
                         </span>
                     </div>
@@ -32,8 +33,6 @@
                     </span>
                 
                   </mat-list>
-
-
             </div>
 
 
