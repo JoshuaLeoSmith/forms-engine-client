@@ -42,10 +42,12 @@ i:hover{
   align-items: center;
   flex-wrap: wrap; /* Allow the item to grow based on content */
   height:auto;
+  min-height: 50px;
 }
 
-.width-auto{
-  width: auto;
+.width-auto {
+  width: auto; /* Set a minimum width */
+  max-width: 200px; /* Set a maximum width */
 }
 
 
@@ -77,6 +79,10 @@ i:hover{
   display:flex;
 }
 
+.display-flex{
+  display: flex;
+}
+
 .list-item-wrapper-wrapper{
   margin-bottom: 2rem;
 }
@@ -84,4 +90,8 @@ i:hover{
 .delete-tab{
   display:flex;
   align-items: center;
+}
+
+.tab-title{
+  width:auto;
 }
