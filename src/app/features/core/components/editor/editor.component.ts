@@ -9,10 +9,20 @@ import {MatListModule} from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Tab } from '../../models/tab';
+import {MatCardModule} from '@angular/material/card';
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import { QuestionDialogComponent } from '../question-dialog/question-dialog.component';
 
 @Component({
   selector: 'app-editor',
-  imports: [CommonModule,MatTabsModule,MatInputModule ,MatListModule, FormsModule,MatStepperModule,MatFormFieldModule,ReactiveFormsModule],
+  imports: [CommonModule,MatCardModule,MatTabsModule,MatInputModule ,MatListModule, FormsModule,MatStepperModule,MatFormFieldModule,ReactiveFormsModule],
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.scss'
 })
@@ -22,6 +32,9 @@ export class EditorComponent {
   sections:any=[];
   questions:any=[];
 
+  selectedTabIndex :number = 0;
+
+
   @ViewChild('stepper') stepper: MatStepper | undefined;
 
 
@@ -30,6 +43,16 @@ export class EditorComponent {
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
+
+  dialogRef: MatDialogRef<QuestionDialogComponent> | undefined; 
+
+  constructor(private dialog:MatDialog){
+    
+  }
+
+  openDialog() {
+    this.dialogRef = this.dialog.open(QuestionDialogComponent);
+  }
 
   ngOnInit() {
   }
@@ -85,10 +108,20 @@ export class EditorComponent {
     this.steps[this.stepper!.selectedIndex].tabs.splice(index,1);
   }
 
+  selectTab(index:number){
+    this.selectedTabIndex = index;
+  }
+
   deleteStep(index:number){
     this.steps.splice(index,1);
-
   }
+
+
+
+  launchQuestionDialog(){
+    
+  }
+
 
   generateRandomId(length: number = 10): string {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

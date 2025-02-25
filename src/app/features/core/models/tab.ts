@@ -1,7 +1,9 @@
+import { Section } from "./section";
+
 export class Tab {
     id: string;
     title: string;
-    sections: any[];
+    sections: Section[];
     
     constructor(id:string,title: string, sections: any[]){
         this.id = id;

@@ -14,12 +14,12 @@
             <i (click)="deleteStep(i)" class="pi pi-trash"></i>
             <i (click)="shiftStepRight(i)" class="pi pi-arrow-circle-right"></i>
         
-
+            <div class="display-flex">
             <div class="tab-wrapper">
                 <mat-list role="list">
                     <div class="list-item-wrapper-wrapper">
                         <div *ngFor="let tab of step.tabs; index as j;" class="list-item-wrapper">
-                            <mat-list-item class="mat-list-item" role="listitem"><p class="p-list-item">{{tab.title}}</p></mat-list-item>
+                            <mat-list-item (click)="selectTab(j)" class="mat-list-item" role="listitem"><p class="p-list-item">{{tab.title}}</p></mat-list-item>
 
                             <input type="text" [(ngModel)]="tab.title" placeholder="Tab Title" class="form-control width-auto" required>
 
@@ -32,6 +32,31 @@
                         <i class="pi pi-plus-circle"></i>&nbsp; Add tab
                     </span>
                   </mat-list>
+            </div>
+
+            <div class="tab-content">
+                <div *ngFor="let tab of step.tabs; index as j;" class="tab-content-wrapper" [hidden]="this.selectedTabIndex !== j">
+                    <div class="questionaire-wrapper">
+                        <div *ngFor="let section of tab.sections; index as k">
+                            <mat-card appearance="outlined">
+                                <mat-card-header>
+                                  <mat-card-title *ngIf="section.showSectionTitle"> {{ section.title }}</mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <div *ngFor="let question of section.questions">
+
+                                    </div>
+                                </mat-card-content>
+                                
+
+                              </mat-card>
+                        </div>
+                        <span (click)="this.openDialog()" class="add tab">
+                            <i class="pi pi-plus-circle"></i>&nbsp; Add Question
+                        </span>
+                    </div>
+                </div>
+            </div>
             </div>
 
           </mat-step>
