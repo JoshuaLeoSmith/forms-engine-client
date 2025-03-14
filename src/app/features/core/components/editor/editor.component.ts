@@ -14,6 +14,7 @@ import {
   MatDialog,
   MatDialogActions,
   MatDialogClose,
+  MatDialogConfig,
   MatDialogContent,
   MatDialogRef,
   MatDialogTitle,
@@ -51,6 +52,11 @@ export class EditorComponent {
   }
 
   openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.position = {
+      top: '100px',
+      left: '200px'
+    };
     this.dialogRef = this.dialog.open(QuestionDialogComponent);
   }
 

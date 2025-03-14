@@ -1,18 +1,28 @@
 <div class="dialog-wrapper">
     <h1>Add Question</h1>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline">
         <mat-label>Unique Question Code</mat-label>
         <input matInput placeholder="Code">
 
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline">
         <mat-label>Title</mat-label>
         <input matInput placeholder="Title">
 
     </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+        <mat-label>Prompt</mat-label>
+        <textarea matInput placeholder="What is your first name?"></textarea>
 
+    </mat-form-field>
+
+    <mat-dialog-actions>
+        <button mat-button >No Thanks</button>
+        <button mat-button cdkFocusInitial>Ok</button>
+      </mat-dialog-actions>
 
 
 </div>
