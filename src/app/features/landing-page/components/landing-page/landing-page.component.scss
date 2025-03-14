@@ -1,0 +1,41 @@
+h1{
+    font-family: 'PF Mellon', sans-serif;
+    font-size: 75px;
+}
+
+@-webkit-keyframes blackWhite {  
+    0% { background-color: white; color: black; }
+    50% { background-color: white; color:black; }
+    51% { background-color: black; color:white; }
+    100% { background-color: black; color:white }
+  }
+
+@keyframes blackWhite {  
+    0% { background-color: white; color:black;}
+    50% { background-color: white; color: black;}
+    51% { background-color: black; color:white; }
+    100% { background-color: black; color:white }
+  }
+  
+  .blinkdiv {
+      height: 200px;
+      background-color: black;
+      -webkit-animation-name: blackWhite;  
+      animation-name: blackWhite;
+      -webkit-animation-iteration-count: infinite;  
+      animation-iteration-count: infinite;
+      -webkit-animation-duration: 3s; 
+      animation-duration: 3s;
+
+      display:flex;
+      align-items: center;
+      justify-content: center;
+
+
+  }   
+
+  .card{
+    display: flex;
+    // flex-direction: column;
+    border: solid yellow 2px;
+  }
