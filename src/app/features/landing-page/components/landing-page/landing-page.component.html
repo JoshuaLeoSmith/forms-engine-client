@@ -1,5 +1,62 @@
-<div class="blinkdiv">
+<div class="landing-page">
+    <div class="landing-page-container">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title">Welcome to <span class="highlight">QuestionNexus</span></h1>
+          <p class="hero-subtitle">Streamline your data input with dynamic questionnaires.</p>
+        </div>
+      </section>
+  
+      <!-- Features Section -->
+      <section class="features-section">
+        <div class="card-section">
+          <mat-card class="card" *ngFor="let feature of texts; let i = index" appearance="outlined">
+            <mat-card-header>
+              <mat-card-title>{{ feature }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>
+                {{ getDescription(feature) }}
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <!-- Join the Waitlist Button -->
+        <div class="waitlist-button-container">
+          <button class="waitlist-button" (click)="joinWaitlist()">Join the Waitlist</button>
+        </div>
+      </section>
+  
+      <!-- Footer -->
+      <footer class="footer">
+        <p>&copy; 2025 QuestionNexus. All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+
+
+
+
+<!-- <div class="blinkdiv">
     
     <h1>{{this.texts[this.currentIndex]}}</h1>
-    <!-- <h1>{{timeLeft}} Seconds Left....</h1> -->
+    pi-refresh
 </div>
+
+<div class="card-section">
+    <mat-card class="card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>Shiba Inu</mat-card-title>
+          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+            bred for hunting.
+          </p>
+        </mat-card-content>
+      </mat-card>
+      
+</div> -->

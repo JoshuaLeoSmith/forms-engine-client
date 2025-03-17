@@ -1,59 +1,59 @@
-import { AfterViewInit, Component, OnInit, inject, LOCALE_ID, signal, Inject, PLATFORM_ID, ENVIRONMENT_INITIALIZER } from '@angular/core'; // update this
+import { AfterViewInit, Component, OnInit, inject, LOCALE_ID, signal, Inject, PLATFORM_ID, ENVIRONMENT_INITIALIZER, HostListener } from '@angular/core'; // update this
 import { interval,Subscription } from 'rxjs';
-import {isPlatformBrowser} from "@angular/common"; 
+import {CommonModule, isPlatformBrowser} from "@angular/common"; 
 import { AudioService } from '../../services/audio.service';
 import { environment } from '../../../../../environments/environment';
 import { DOCUMENT } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-landing-page',
-  imports: [],
+  imports: [MatCardModule, CommonModule],
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent {
 
-  texts:string[] = ["STOP WASTING TIME.", "STREAMLINE DATA INPUT.", "CREATE COMPLEX QUESTIONNAIRES.",
-     "STRAIGHT TO PRODUCTION.", "20 QUESTION TYPES.", "4 LAYERS OF ORGANIZATION.", "DYNAMIC RULESET.",
-      "JOIN THE WAITLIST.", "QUESTION NEXUS."]
-  currentIndex:number = 0;
-  intervalId: any;
+  texts: string[] = [
+    "Stop Wasting Time",
+    "Streamline Data Input",
+    "Create Complext Questionnaires",
+    "Straight to Production",
+    "20 Question Types",
+    "4 Layers of Organization",
+    "Dyanimc Ruleset",
+    "Join the Waitlist"
+  ];
+  currentIndex: number = 0;
 
-  isBrowser = signal(false); 
-  audio: HTMLAudioElement | null = null; // Class-level property to manage the Audio object
 
-
-  constructor(@Inject(PLATFORM_ID) platformId: object, private audioService: AudioService, @Inject(DOCUMENT) private document: Document) { 
-    this.isBrowser.set(isPlatformBrowser(platformId));  
-  }
-  
-  ngOnInit(){
-    // let audio = this.document.getElementById("audio") as HTMLAudioElement;
-    // audio.play();
-  }
-
-  ngAfterViewInit(): void {
-    this.startTextRotation();
-    
-  }
-
-  startTextRotation(){
-    if(this.isBrowser()) { // check it where you want to write setTimeout or setInterval
-      this.intervalId = setInterval(() => {
-        this.currentIndex = (this.currentIndex + 1) % this.texts.length;
-      }, 1500); // Change text every 2 seconds
-    }
-  }
-  stopTextRotation() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
+  @HostListener('window:scroll', ['$event'])
+  onScroll(): void {
+    const features = document.querySelectorAll('.feature');
+    features.forEach((feature, index) => {
+      const rect = feature.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom >= 0) {
+        feature.classList.add('animate');
+      }
+    });
   }
 
-  ngOnDestroy(){
-    this.audioService.stopAudio();
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
+  getDescription(feature: string): string {
+    const descriptions: { [key: string]: string } = {
+      "Stop Wasting Time": "Your data input needs change every day. Why waste time continuing to roll out complex and static code changes?",
+      "Streamline Data Input": "Our platform allows you to easily create and deploy dynamic forms, saving you time and effort.",
+      "Create Complext Questionnaires": "Design intricate questionnaires with ease using our advanced features.",
+      "Straight to Production": "No deployment required. Our system detects your changes and updates in real-time.",
+      "20 Question Types": "Choose from a wide variety of question types to suit your needs, including radio button, checkbox, date input, and many more.",
+      "4 Layers of Organization": "Organize your data with a robust four-layer structure.",
+      "Dyanimc Ruleset": "Apply dynamic rules to customize the behavior of your forms. Validate responses, show/hide questions, and more.",
+      "Join the Waitlist": "Be the first to experience our cutting-edge platform by joining the waitlist.",
+    };
+
+    return descriptions[feature] || "Description not available.";
+  }
+
+  joinWaitlist(): void {
+    alert('Thank you for joining the waitlist! We will contact you soon.');
   }
 
 }

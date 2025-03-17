@@ -1,41 +1,285 @@
-h1{
-    font-family: 'PF Mellon', sans-serif;
-    font-size: 75px;
-}
-
-@-webkit-keyframes blackWhite {  
-    0% { background-color: white; color: black; }
-    50% { background-color: white; color:black; }
-    51% { background-color: black; color:white; }
-    100% { background-color: black; color:white }
+/* filepath: /c:/Users/joshu/Documents/projects/the-forms-engine/the-forms-engine/src/app/features/landing-page/components/landing-page/landing-page.component.scss */
+.landing-page-container {
+    background-color: white; /* Card-like background */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+    width: 100%;
+    max-width: 1200px; /* Limit the width for a centered card look */
+    padding: 30px; /* Add padding inside the card */
+    overflow: hidden; /* Prevent content overflow */
   }
-
-@keyframes blackWhite {  
-    0% { background-color: white; color:black;}
-    50% { background-color: white; color: black;}
-    51% { background-color: black; color:white; }
-    100% { background-color: black; color:white }
+/* General Styles */
+.landing-page {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    scroll-behavior: smooth;
+    background-color: #f5f5f5;
   }
   
-  .blinkdiv {
-      height: 200px;
-      background-color: black;
-      -webkit-animation-name: blackWhite;  
-      animation-name: blackWhite;
-      -webkit-animation-iteration-count: infinite;  
-      animation-iteration-count: infinite;
-      -webkit-animation-duration: 3s; 
-      animation-duration: 3s;
+/* filepath: /c:/Users/joshu/Documents/projects/the-forms-engine/the-forms-engine/src/app/features/landing-page/components/landing-page/landing-page.component.scss */
 
-      display:flex;
-      align-items: center;
-      justify-content: center;
-
-
-  }   
-
-  .card{
+/* Hero Section */
+.hero-section {
+    height: 50vh; /* Full viewport height */
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(129, 199, 132, 0.8)); /* Overlay gradient and background image */
+    background-size: cover; /* Ensure the image covers the entire section */
+    background-position: center; /* Center the image */
     display: flex;
-    // flex-direction: column;
-    border: solid yellow 2px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
   }
+  
+  /* Add decorative patterns */
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    z-index: 1;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    z-index: 1;
+    animation: float 8s ease-in-out infinite reverse;
+  }
+  
+  /* Floating animation for decorative patterns */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(20px);
+    }
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2; /* Ensure content is above the decorative patterns */
+  }
+  
+  .hero-title {
+    font-size: 4rem;
+    margin: 0;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); /* Add text shadow for better readability */
+  }
+  
+  .hero-title .highlight {
+    color: #ffeb3b;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Add text shadow for better readability */
+  }
+  
+  /* Add a decorative underline to the subtitle */
+  .hero-subtitle::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: #ffeb3b;
+    margin: 10px auto 0;
+  }
+  
+  /* Features Section */
+  .features-section {
+    background-color: #f5f5f5;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .feature {
+    margin: 20px 0;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .feature.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* About Section */
+  .about-section {
+    background: linear-gradient(135deg, #2196f3, #64b5f6);
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  .about-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .about-section p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+
+  .features-section {
+    background-color: #f5f5f5;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 200px;
+    margin-left:200px;
+
+  }
+  
+  .card-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid layout */
+    gap: 20px; /* Space between cards */
+    width: 100%; /* Ensure the grid spans the full width */
+    padding: 20px;
+  }
+  
+  .card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+
+
+  .waitlist-button {
+    background: linear-gradient(135deg, #ff5722, #ff9800); /* Gradient background */
+    color: white;
+    border: none;
+    padding: 15px 30px; /* Larger padding for a prominent look */
+    font-size: 1.2rem; /* Slightly larger font size */
+    font-weight: bold;
+    border-radius: 50px; /* Rounded button */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+    text-transform: uppercase; /* Make the text uppercase */
+  }
+  
+  .waitlist-button:hover {
+    background: linear-gradient(135deg, #ff9800, #ff5722); /* Reverse gradient on hover */
+    transform: scale(1.1); /* Slightly enlarge the button on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+  }
+  
+  .waitlist-button:active {
+    transform: scale(1); /* Reset scale when clicked */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+  }
+  
+  /* Top-right button in Hero Section */
+  .waitlist-button.top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  
+  /* Centered button at the bottom of the Card Section */
+  .waitlist-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .waitlist-link {
+    color: #ff5722;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .waitlist-link:hover {
+    color: #e64a19;
+  }
+
+
+
+
+
+
+
+// h1{
+//     font-family: 'PF Mellon', sans-serif;
+//     font-size: 75px;
+// }
+
+// @-webkit-keyframes blackWhite {  
+//     0% { background-color: white; color: black; }
+//     50% { background-color: white; color:black; }
+//     51% { background-color: black; color:white; }
+//     100% { background-color: black; color:white }
+//   }
+
+// @keyframes blackWhite {  
+//     0% { background-color: white; color:black;}
+//     50% { background-color: white; color: black;}
+//     51% { background-color: black; color:white; }
+//     100% { background-color: black; color:white }
+//   }
+  
+//   .blinkdiv {
+//       height: 200px;
+//       background-color: black;
+//       color:white;
+//       -webkit-animation-name: blackWhite;  
+//       animation-name: blackWhite;
+//       -webkit-animation-iteration-count: 4;  
+//       animation-iteration-count: 4;
+//       -webkit-animation-duration: 3s; 
+//       animation-duration: 3s;
+
+//       display:flex;
+//       align-items: center;
+//       justify-content: center;
+
+
+//   }   
+
+//   .card{
+//     display: flex;
+//     // flex-direction: column;
+//     border: solid rgb(0, 179, 0) 2px;
+//     max-width: 50%;
+
+//     margin-left: 100px;
+//     margin-top: 50px;
+//   }
