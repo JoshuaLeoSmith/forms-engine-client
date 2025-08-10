@@ -92,3 +92,15 @@ i:hover{
   display:flex;
   align-items: center;
 }
+
+.no-border{
+  border:none;
+  outline:none;
+  background:transparent;
+  text-align:center;
+}
+
+.bold-text[type="text"] {
+  font-weight: bold;
+  
+    }

@@ -7,8 +7,9 @@
 
             <ng-template matStepLabel>
                 {{ step.title ? step.title : "Step "+(i + 1) }} &nbsp;
+                <!-- <input type="text" [(ngModel)]="step.title" placeholder="Step Title" class="form-control no-border bold-text" required> -->
             </ng-template>
-            <input type="text" [(ngModel)]="step.title" placeholder="Step Title" class="form-control" required>
+            <input type="text" [(ngModel)]="step.title" placeholder="Step Title" class="form-control no-border bold-text" required>
             &nbsp;
             <i (click)="shiftStepLeft(i)" class="pi pi-arrow-circle-left"></i>
             <i (click)="deleteStep(i)" class="pi pi-trash"></i>
@@ -19,9 +20,13 @@
                 <mat-list role="list">
                     <div class="list-item-wrapper-wrapper">
                         <div *ngFor="let tab of step.tabs; index as j;" class="list-item-wrapper">
-                            <mat-list-item (click)="selectTab(j)" class="mat-list-item" role="listitem"><p class="p-list-item">{{tab.title}}</p></mat-list-item>
+                            <mat-list-item (click)="selectTab(j)" class="mat-list-item" role="listitem">
+                                <!-- <p class="p-list-item">{{tab.title}}</p> -->
+                                <input type="text" [(ngModel)]="tab.title" placeholder="Tab Title" class="form-control width-auto no-border bold-text" required>
+                            
+                            </mat-list-item>
 
-                            <input type="text" [(ngModel)]="tab.title" placeholder="Tab Title" class="form-control width-auto" required>
+                            <!-- <input type="text" [(ngModel)]="tab.title" placeholder="Tab Title" class="form-control width-auto" required> -->
 
                             <span class="delete-tab">
                                 <i (click)="deleteTab(j)" class="pi pi-trash"></i>
