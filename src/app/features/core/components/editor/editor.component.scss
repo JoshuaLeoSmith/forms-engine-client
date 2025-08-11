@@ -104,3 +104,10 @@ i:hover{
   font-weight: bold;
   
     }
+
+.mat-dialog-container {
+  max-width: none !important;
+  width: 1000px !important; /* Allow it to take full width up to the max */
+  height: 1000px !important; /* Adjust height as needed */
+  padding: 20px !important; /* Add some padding */
+}

@@ -5,4 +5,24 @@
 
 mat-form-field{
     margin: 10px;
+    width: 90%;
+}
+
+.vertical-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.flex-container{
+    display: flex;
+    gap:1rem;
+}
+
+.column {
+  flex: 1; /* Each column will take up an equal amount of space */
+  
+  /* Optional: for styling */
+  padding: 1rem;
+//   border: 1px solid #ccc;
 }

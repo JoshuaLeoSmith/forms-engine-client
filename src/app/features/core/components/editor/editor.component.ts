@@ -53,11 +53,11 @@ export class EditorComponent {
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.position = {
-      top: '100px',
-      left: '200px'
-    };
-    this.dialogRef = this.dialog.open(QuestionDialogComponent);
+
+    dialogConfig.width = '60vw'; 
+    dialogConfig.height = '80vh';
+    dialogConfig.maxWidth = 'none';
+    this.dialogRef = this.dialog.open(QuestionDialogComponent, dialogConfig);
   }
 
   ngOnInit() {
