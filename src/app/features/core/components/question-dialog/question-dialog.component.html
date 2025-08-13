@@ -29,8 +29,19 @@
                 </mat-select>
             </mat-form-field>
 
-            <div *ngIf="this.questionType == 'radioButton' || this.questionType == 'Checkbox'">
+            <div *ngIf="this.questionType == 'radioButton' || this.questionType == 'checkbox'">
+                <button (click)="addOption()" mat-button extended>Add Option +</button>
+                <div *ngFor="let option of this.options; index as i">
+                    <span>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Option {{i}}</mat-label>
+                            <textarea matInput [(ngModel)]="options[i]"></textarea>
+                        </mat-form-field>
 
+                        <i (click)="options.splice(i, 1)" class="pi pi-trash"></i>
+
+                    </span>
+                </div>
             </div>
 
 

@@ -5,10 +5,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-question-dialog',
-  imports: [MatFormFieldModule,MatButtonModule,CommonModule, MatInputModule,MatDialogModule,MatSelectModule],
+  imports: [MatFormFieldModule,FormsModule ,MatButtonModule,CommonModule, MatInputModule,MatDialogModule,MatSelectModule],
   standalone:true,
   templateUrl: './question-dialog.component.html',
   styleUrl: './question-dialog.component.scss'
@@ -16,5 +17,10 @@ import {MatButtonModule} from '@angular/material/button';
 export class QuestionDialogComponent {
 
   questionType: any = '';
+  options: string[] = [];
+
+  addOption() {
+    this.options.push('');
+  }
 
 }
