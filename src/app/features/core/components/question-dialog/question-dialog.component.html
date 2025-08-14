@@ -1,5 +1,5 @@
 <div class="dialog-wrapper vertical-form">
-    <div style="margin:10px"><h1>Add Question</h1></div>
+    <div style="margin-left: 10px"><h1>Add Question</h1></div>
 
     <div class="flex-container">
         <div class="column">
@@ -15,7 +15,7 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Prompt</mat-label>
-                <textarea style="height: 250px" matInput placeholder="What is your first name?"></textarea>
+                <textarea style="height: 200px" matInput placeholder="What is your first name?"></textarea>
             </mat-form-field>
         </div>
         <div class="column">
@@ -35,10 +35,10 @@
                     <span>
                         <mat-form-field appearance="outline">
                             <mat-label>Option {{i}}</mat-label>
-                            <textarea matInput [(ngModel)]="options[i]"></textarea>
+                            <textarea matInput></textarea>
                         </mat-form-field>
 
-                        <i (click)="options.splice(i, 1)" class="pi pi-trash"></i>
+                        <i (click)="options.splice(i, 1)" class="pi pi-trash delete"></i>
 
                     </span>
                 </div>

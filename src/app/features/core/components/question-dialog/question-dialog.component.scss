@@ -4,7 +4,7 @@
 
 
 mat-form-field{
-    margin: 10px;
+    // margin: 10px;
     width: 90%;
 }
 
@@ -25,4 +25,9 @@ mat-form-field{
   /* Optional: for styling */
   padding: 1rem;
 //   border: 1px solid #ccc;
+}
+.delete:hover {
+    cursor: pointer;
+    color: red;
+
 }
