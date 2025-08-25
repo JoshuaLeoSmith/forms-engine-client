@@ -7,6 +7,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Question } from '../../models/question';
 
 @Component({
   selector: 'app-question-dialog',
@@ -17,8 +18,13 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class QuestionDialogComponent {
 
+
   questionType: any = '';
   options: string[] = [];
+  code:string = '';
+  prompt:string = '';
+  required:boolean = false;
+  section:string = '';
 
   constructor(public dialogRef: MatDialogRef<QuestionDialogComponent>) {}
 
@@ -28,8 +34,16 @@ export class QuestionDialogComponent {
   }
 
   saveAndClose(){
-    // Here you can handle the saving logic before closing the dialog
-    this.dialogRef.close({ questionType: this.questionType, options: this.options });
+    let question = new Question(
+      crypto.randomUUID(),
+      this.code,
+      this.questionType,
+      this.options,
+      this.prompt,
+      this.section,
+      this.required
+    );
+    this.dialogRef.close(question);
   }
 
   addOption() {

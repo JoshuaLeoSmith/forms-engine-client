@@ -58,6 +58,14 @@ export class EditorComponent {
     dialogConfig.height = '80vh';
     dialogConfig.maxWidth = 'none';
     this.dialogRef = this.dialog.open(QuestionDialogComponent, dialogConfig);
+    this.dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      // result is the Question object returned from saveAndClose
+      console.log('Dialog result:', result);
+      // For example, add to questions array:
+      this.questions.push(result);
+    }
+  });
   }
 
   ngOnInit() {
