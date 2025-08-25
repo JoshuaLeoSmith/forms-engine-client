@@ -1,5 +1,8 @@
 <div class="dialog-wrapper vertical-form">
+    <span style="display: flex; align-items: center;">
     <div style="margin-left: 10px"><h1>Add Question</h1></div>
+    <i (click)="this.closeDialog()" class="pi pi-times-circle delete" style="margin-right: 20px;margin-left: auto; font-size: 1.5rem;"></i>
+    </span>
 
     <div class="flex-container">
         <div class="column">
@@ -31,15 +34,16 @@
 
             <div *ngIf="this.questionType == 'radioButton' || this.questionType == 'checkbox'">
                 <button (click)="addOption()" mat-button extended>Add Option +</button>
-                <div *ngFor="let option of this.options; index as i">
+                <div *ngFor="let option of this.options; index as i; trackBy: trackByIndex" class="option-row">
                     <span>
                         <mat-form-field appearance="outline">
-                            <mat-label>Option {{i}}</mat-label>
-                            <textarea matInput></textarea>
+                            <mat-label>Option {{i+1}}</mat-label>
+                             <input [(ngModel)]="options[i]" matInput>
                         </mat-form-field>
 
                         <i (click)="options.splice(i, 1)" class="pi pi-trash delete"></i>
-
+                        <i (click)="moveOptionUp(i)" class="pi pi-arrow-up icon-blue"></i>
+                        <i (click)="moveOptionDown(i)" class="pi pi-arrow-down icon-blue"></i>
                     </span>
                 </div>
             </div>
@@ -48,10 +52,8 @@
         </div>
 
     </div>
-    <!-- <mat-dialog-actions>
-        <button mat-button >No Thanks</button>
-        <button mat-button cdkFocusInitial>Ok</button>
-      </mat-dialog-actions> -->
-
+    <mat-dialog-actions>
+        <button (click)="saveAndClose()" mat-button>Save</button>
+      </mat-dialog-actions>
 
 </div>
