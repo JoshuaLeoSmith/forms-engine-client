@@ -8,23 +8,23 @@
         <div class="column">
             <mat-form-field appearance="outline">
                 <mat-label>Unique Question Code</mat-label>
-                <input matInput placeholder="Code">
+                <input matInput [(ngModel)]="this.code" placeholder="Code">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Section</mat-label>
-                <input matInput placeholder="">
-            </mat-form-field>
-
+                <input matInput [(ngModel)]="this.section" placeholder="">
+            </mat-form-field>      
+         
             <mat-form-field appearance="outline">
                 <mat-label>Prompt</mat-label>
-                <textarea style="height: 200px" matInput placeholder="What is your first name?"></textarea>
+                <textarea style="height: 200px" matInput [(ngModel)]="this.prompt" placeholder="What is your first name?"></textarea>
             </mat-form-field>
         </div>
         <div class="column">
             <mat-form-field appearance="outline">
                 <mat-label>Question Type</mat-label>
-                <mat-select [(value)]="questionType">
+                <mat-select [(ngModel)]="questionType">
                     <mat-option value="textBox">Text Box</mat-option>
                     <mat-option value="radioButton">Radio Button</mat-option>
                     <mat-option value="checkbox">Checkbox</mat-option>
@@ -32,8 +32,21 @@
                 </mat-select>
             </mat-form-field>
 
+            <div *ngIf="this.questionType=='textBox'">
+                <mat-form-field appearance="outline">
+                    <mat-label>Textbox Size</mat-label>
+                    <mat-select [(ngModel)]="textBoxSize">
+                        <mat-option value="small">Small</mat-option>
+                        <mat-option value="medium">Medium</mat-option>
+                        <mat-option value="large">Large</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+            </div>
+
             <div *ngIf="this.questionType == 'radioButton' || this.questionType == 'checkbox'">
-                <button (click)="addOption()" mat-button extended>Add Option +</button>
+                <button style="margin-bottom:10px" (click)="addOption()" mat-button extended>Add Option +</button>
+
                 <div *ngFor="let option of this.options; index as i; trackBy: trackByIndex" class="option-row">
                     <span>
                         <mat-form-field appearance="outline">
@@ -41,7 +54,7 @@
                              <input [(ngModel)]="options[i]" matInput>
                         </mat-form-field>
 
-                        <i (click)="options.splice(i, 1)" class="pi pi-trash delete"></i>
+                        <i (click)="removeOption(i)" class="pi pi-trash delete"></i>
                         <i (click)="moveOptionUp(i)" class="pi pi-arrow-up icon-blue"></i>
                         <i (click)="moveOptionDown(i)" class="pi pi-arrow-down icon-blue"></i>
                     </span>

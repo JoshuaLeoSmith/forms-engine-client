@@ -6,8 +6,9 @@ export class Question {
     prompt:string;
     section:string;
     required:boolean;
+    textBoxSize:string = 'small;'
 
-    constructor(id:string, code:string, type:string, options:string[], prompt:string, section:string, required:boolean) {
+    constructor(id:string, code:string, type:string, options:string[], prompt:string, section:string, required:boolean, textBoxSize:string='small;') {
         this.id = id;
         this.code = code;
         this.type = type;
@@ -15,6 +16,6 @@ export class Question {
         this.prompt = prompt;
         this.section = section;
         this.required = required;
+        this.textBoxSize = textBoxSize;
     }
-    
 }

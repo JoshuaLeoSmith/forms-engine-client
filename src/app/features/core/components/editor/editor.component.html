@@ -44,12 +44,27 @@
                     <div class="questionaire-wrapper">
                         <div *ngFor="let section of tab.sections; index as k">
                             <mat-card appearance="outlined">
-                                <mat-card-header>
+                                <mat-card-header class="ten-pix-bottom">
                                   <mat-card-title *ngIf="section.showSectionTitle"> {{ section.title }}</mat-card-title>
                                 </mat-card-header>
                                 <mat-card-content>
                                     <div *ngFor="let question of section.questions">
+                                        
+                                        <mat-label class="ten-pix-bottom">{{question.prompt}}</mat-label>
+                                        <div *ngIf="question.type=='radioButton'">
+                                            <mat-radio-group class="vertical-radio-group">
+                                                <mat-radio-button *ngFor="let option of question.options" [value]="option">{{option}}</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        
+                                        <div class="ten-pix-top" *ngIf="question.type=='textBox'">
+                                            <mat-form-field class="small" [style.width.px]="question.textBoxSize == 'small' ? 200 : question.textBoxSize == 'medium' ? 400 : 600" appearance="outline">
 
+                                            <input matInput>
+                                            </mat-form-field>
+                                        </div>
+                                      
+                                        
                                     </div>
                                 </mat-card-content>
                                 

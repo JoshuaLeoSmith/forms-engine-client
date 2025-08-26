@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit,inject, ViewChild } from '@angular/core';
 import { Step } from '../../models/step';
-import {FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, Validators, FormsModule, ReactiveFormsModule,FormGroup, FormArray,} from '@angular/forms';
 import {MatStepper, MatStepperModule} from '@angular/material/stepper'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
@@ -10,6 +10,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Tab } from '../../models/tab';
 import {MatCardModule} from '@angular/material/card';
+import { MatRadioModule } from '@angular/material/radio';
+
+
 import {
   MatDialog,
   MatDialogActions,
@@ -20,18 +23,20 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { QuestionDialogComponent } from '../question-dialog/question-dialog.component';
+import { Question } from '../../models/question';
+import { Section } from '../../models/section';
 
 @Component({
   selector: 'app-editor',
-  imports: [CommonModule,MatCardModule,MatTabsModule,MatInputModule ,MatListModule, FormsModule,MatStepperModule,MatFormFieldModule,ReactiveFormsModule],
+  imports: [CommonModule,MatCardModule,MatRadioModule,MatTabsModule,MatInputModule ,MatListModule, FormsModule,MatStepperModule,MatFormFieldModule,ReactiveFormsModule],
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.scss'
 })
 export class EditorComponent {
   steps:Step[] = [];
   tabs:Tab[] = [];
-  sections:any=[];
-  questions:any=[];
+  sections:Section[]=[];
+  questions:Question[]=[];
 
   selectedTabIndex :number = 0;
 
@@ -60,10 +65,13 @@ export class EditorComponent {
     this.dialogRef = this.dialog.open(QuestionDialogComponent, dialogConfig);
     this.dialogRef.afterClosed().subscribe(result => {
     if (result) {
-      // result is the Question object returned from saveAndClose
-      console.log('Dialog result:', result);
-      // For example, add to questions array:
       this.questions.push(result);
+      if(this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex].sections.filter(section=>section.title===result.section).length==0){
+        this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex].sections.push(new Section(crypto.randomUUID(), result.section, [result]));
+      }
+      else{
+        this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex].sections.filter(section=>section.title===result.section)[0].questions.push(result);
+      }
     }
   });
   }

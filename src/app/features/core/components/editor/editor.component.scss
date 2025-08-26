@@ -111,3 +111,22 @@ i:hover{
   height: 1000px !important; /* Adjust height as needed */
   padding: 20px !important; /* Add some padding */
 }
+
+.tab-content{
+  width: 100%;
+  // display: flex;
+}
+
+.vertical-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.ten-pix-bottom{
+  margin-bottom:10px;
+}
+
+.ten-pix-top{
+  margin-top:10px;
+}

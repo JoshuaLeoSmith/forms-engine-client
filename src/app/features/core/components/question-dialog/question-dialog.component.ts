@@ -5,13 +5,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Question } from '../../models/question';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-question-dialog',
-  imports: [MatFormFieldModule,FormsModule ,MatButtonModule,CommonModule, MatInputModule,MatDialogModule,MatSelectModule],
+  imports: [MatFormFieldModule,MatCheckboxModule,FormsModule ,MatButtonModule,CommonModule, MatInputModule,MatDialogModule,MatSelectModule],
   standalone:true,
   templateUrl: './question-dialog.component.html',
   styleUrl: './question-dialog.component.scss'
@@ -25,6 +26,8 @@ export class QuestionDialogComponent {
   prompt:string = '';
   required:boolean = false;
   section:string = '';
+
+  textBoxSize:string = 'small;'
 
   constructor(public dialogRef: MatDialogRef<QuestionDialogComponent>) {}
 
@@ -41,7 +44,8 @@ export class QuestionDialogComponent {
       this.options,
       this.prompt,
       this.section,
-      this.required
+      this.required,
+      this.textBoxSize
     );
     this.dialogRef.close(question);
   }
@@ -49,6 +53,10 @@ export class QuestionDialogComponent {
   addOption() {
     this.options.push('');
   }
+
+  removeOption(indexToRemove: number) {
+  this.options = this.options.filter((_, index) => index !== indexToRemove);
+}
 
   moveOptionUp(index: number) {
     if (index > 0) {
