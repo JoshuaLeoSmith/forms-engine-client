@@ -46,8 +46,8 @@ i:hover{
 }
 
 .width-auto {
-  width: auto; /* Set a minimum width */
-  max-width: 200px; /* Set a maximum width */
+  width: 90%; /* Set a minimum width */
+  // max-width: 150px; /* Set a maximum width */
 }
 
 
@@ -129,4 +129,9 @@ i:hover{
 
 .ten-pix-top{
   margin-top:10px;
+}
+.flex-container{
+    display: flex;
+    gap:2rem;
+    flex-wrap:wrap;
 }

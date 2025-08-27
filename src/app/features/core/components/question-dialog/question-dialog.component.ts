@@ -26,6 +26,7 @@ export class QuestionDialogComponent {
   prompt:string = '';
   required:boolean = false;
   section:string = '';
+  newline:boolean = false;
 
   textBoxSize:string = 'small;'
 
@@ -45,7 +46,8 @@ export class QuestionDialogComponent {
       this.prompt,
       this.section,
       this.required,
-      this.textBoxSize
+      this.textBoxSize,
+      this.newline
     );
     this.dialogRef.close(question);
   }

@@ -20,6 +20,7 @@
                 <mat-label>Prompt</mat-label>
                 <textarea style="height: 200px" matInput [(ngModel)]="this.prompt" placeholder="What is your first name?"></textarea>
             </mat-form-field>
+            <mat-checkbox [(ngModel)]="this.newline">Make question on new line.</mat-checkbox>
         </div>
         <div class="column">
             <mat-form-field appearance="outline">

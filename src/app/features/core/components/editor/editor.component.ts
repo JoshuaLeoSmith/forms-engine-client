@@ -56,6 +56,21 @@ export class EditorComponent {
     
   }
 
+  groupQuestionsByRow(questions: Question[]): Question[][] {
+  const rows: Question[][] = [];
+  let currentRow: Question[] = [];
+  questions.forEach((q, idx) => {
+    if (q.newline || idx === 0) {
+      if (currentRow.length) rows.push(currentRow);
+      currentRow = [q];
+    } else {
+      currentRow.push(q);
+    }
+  });
+  if (currentRow.length) rows.push(currentRow);
+  return rows;
+}
+
   openDialog() {
     const dialogConfig = new MatDialogConfig();
 
@@ -136,12 +151,6 @@ export class EditorComponent {
 
   deleteStep(index:number){
     this.steps.splice(index,1);
-  }
-
-
-
-  launchQuestionDialog(){
-    
   }
 
 
