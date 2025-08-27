@@ -11,6 +11,7 @@ import { MatTabGroup } from '@angular/material/tabs';
 import { Tab } from '../../models/tab';
 import {MatCardModule} from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
+import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList,moveItemInArray} from '@angular/cdk/drag-drop';
 
 
 import {
@@ -28,7 +29,7 @@ import { Section } from '../../models/section';
 
 @Component({
   selector: 'app-editor',
-  imports: [CommonModule,MatCardModule,MatRadioModule,MatTabsModule,MatInputModule ,MatListModule, FormsModule,MatStepperModule,MatFormFieldModule,ReactiveFormsModule],
+  imports: [CommonModule,MatCardModule,CdkDrag,CdkDropList,CdkDragHandle,MatRadioModule,MatTabsModule,MatInputModule ,MatListModule, FormsModule,MatStepperModule,MatFormFieldModule,ReactiveFormsModule],
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.scss'
 })
@@ -71,6 +72,11 @@ export class EditorComponent {
   return rows;
 }
 
+  drop(event: CdkDragDrop<Tab[]>, stepIndex: number) {
+    moveItemInArray(this.steps[stepIndex].tabs, event.previousIndex, event.currentIndex);
+    this.selectedTabIndex = event.currentIndex; // Update selected index
+  }
+
   openDialog() {
     const dialogConfig = new MatDialogConfig();
 
@@ -103,6 +109,11 @@ export class EditorComponent {
         break;
       }
     }
+  }
+
+  trackById(index: number, item: Tab): string {
+    return item.id;
+
   }
 
   shiftStepLeft(index: number){
@@ -161,6 +172,22 @@ export class EditorComponent {
       result += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     return result;
+  }
+
+  moveTabUp(index: number) {
+    if (index > 0) {
+      const tabs = this.steps[this.stepper!.selectedIndex].tabs;
+      [tabs[index - 1], tabs[index]] = [tabs[index], tabs[index - 1]];
+      this.selectedTabIndex = index - 1; // Update selected index
+    }
+  }
+
+  moveTabDown(index: number) {
+    const tabs = this.steps[this.stepper!.selectedIndex].tabs;
+    if (index < tabs.length - 1) {
+      [tabs[index + 1], tabs[index]] = [tabs[index], tabs[index + 1]];
+      this.selectedTabIndex = index + 1; // Update selected index
+    }
   }
 
 }

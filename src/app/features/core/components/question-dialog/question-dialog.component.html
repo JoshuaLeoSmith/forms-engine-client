@@ -8,7 +8,7 @@
         <div class="column">
             <mat-form-field appearance="outline">
                 <mat-label>Unique Question Code</mat-label>
-                <input matInput [(ngModel)]="this.code" placeholder="Code">
+                <input required matInput [(ngModel)]="this.code" placeholder="Code">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
@@ -18,14 +18,14 @@
          
             <mat-form-field appearance="outline">
                 <mat-label>Prompt</mat-label>
-                <textarea style="height: 200px" matInput [(ngModel)]="this.prompt" placeholder="What is your first name?"></textarea>
+                <textarea required style="height: 200px" matInput [(ngModel)]="this.prompt" placeholder="What is your first name?"></textarea>
             </mat-form-field>
             <mat-checkbox [(ngModel)]="this.newline">Make question on new line.</mat-checkbox>
         </div>
         <div class="column">
             <mat-form-field appearance="outline">
                 <mat-label>Question Type</mat-label>
-                <mat-select [(ngModel)]="questionType">
+                <mat-select required [(ngModel)]="questionType">
                     <mat-option value="textBox">Text Box</mat-option>
                     <mat-option value="radioButton">Radio Button</mat-option>
                     <mat-option value="checkbox">Checkbox</mat-option>
@@ -36,7 +36,7 @@
             <div *ngIf="this.questionType=='textBox'">
                 <mat-form-field appearance="outline">
                     <mat-label>Textbox Size</mat-label>
-                    <mat-select [(ngModel)]="textBoxSize">
+                    <mat-select required [(ngModel)]="textBoxSize">
                         <mat-option value="small">Small</mat-option>
                         <mat-option value="medium">Medium</mat-option>
                         <mat-option value="large">Large</mat-option>
@@ -67,7 +67,12 @@
 
     </div>
     <mat-dialog-actions>
-        <button (click)="saveAndClose()" mat-button>Save</button>
+        <button (click)="saveAndClose()" mat-button 
+    [disabled]="
+      !code ||
+      !prompt ||
+      !questionType ||
+      ((questionType === 'radioButton' || questionType === 'checkbox') && options.length === 0)">Save</button>
       </mat-dialog-actions>
 
 </div>

@@ -17,19 +17,20 @@
         
             <div class="display-flex">
             <div class="tab-wrapper">
-                <mat-list role="list">
-                    <div class="list-item-wrapper-wrapper">
-                        <div *ngFor="let tab of step.tabs; index as j;" class="list-item-wrapper">
-                            <mat-list-item style="display:flex;justify-content: center;align-items: center;" (click)="selectTab(j)" class="mat-list-item" role="listitem">
-                                <!-- <p class="p-list-item">{{tab.title}}</p> -->
-                                <input type="text" [(ngModel)]="tab.title" placeholder="Tab Title" class="form-control width-auto no-border  bold-text" required>
+                <mat-list role="list"> 
+                    <div cdkDropList [cdkDropListData]="step.tabs" (cdkDropListDropped)="drop($event,i)" class="list-item-wrapper-wrapper">
+                        <div *ngFor="let tab of step.tabs; index as j; trackBy: trackById" class="list-item-wrapper">
                             
+                            <mat-list-item [class.selected-tab]="selectedTabIndex === j" cdkDrag style="padding-left:10px; padding-right: 0px; display:flex;justify-content: center;align-items: center;" (click)="selectTab(j)" class="mat-list-item" role="listitem">
+                                <input type="text" [(ngModel)]="tab.title" placeholder="Tab Title" class="form-control width-auto no-border bold-text" required>
+                        
+                                <i style="font-size:14px; margin-right: 0" cdkDragHandle class="pi pi-arrows-alt"></i>
                             </mat-list-item>
-
-                            <!-- <input type="text" [(ngModel)]="tab.title" placeholder="Tab Title" class="form-control width-auto" required> -->
-
+                            
                             <span class="delete-tab">
-                                <i (click)="deleteTab(j)" class="pi pi-trash"></i>
+                                <!-- <i (click)="moveTabUp(j)" class="pi pi-arrow-circle-up blue-hover"></i>-->
+                                <i (click)="deleteTab(j)" class="pi pi-trash red-hover"></i>
+                                <!-- <i (click)="moveTabDown(j)" class="pi pi-arrow-circle-down blue-hover"></i> --> 
                             </span>
                         </div>
                     </div>
@@ -42,6 +43,11 @@
             <div class="tab-content">
                 <div *ngFor="let tab of step.tabs; index as j;" class="tab-content-wrapper" [hidden]="this.selectedTabIndex !== j">
                     <div class="questionaire-wrapper">
+                        <div class="add-question-center">
+                            <span (click)="this.openDialog()" class="add tab" style="cursor:pointer;">
+                                <i class="pi pi-plus-circle"></i>&nbsp; Add Question
+                            </span>
+                        </div>
                         <div *ngFor="let section of tab.sections; index as k">
                             <mat-card appearance="outlined">
                                 <mat-card-header class="ten-pix-bottom">
@@ -51,7 +57,12 @@
                                     <ng-container *ngFor="let row of groupQuestionsByRow(section.questions)">
                                         <div class="flex-container">
                                         <div *ngFor="let question of row">
-                                            <mat-label class="ten-pix-bottom">{{question.prompt}}</mat-label>
+                                            <div class="flex-container">
+                                        
+                                                <mat-label class="ten-pix-bottom">{{question.prompt}}</mat-label>
+                                                <i (click)="deleteTab(j)" class="pi pi-trash red-hover"></i>
+
+                                            </div>
                                             <div *ngIf="question.type=='radioButton'">
                                             <mat-radio-group class="vertical-radio-group">
                                                 <mat-radio-button *ngFor="let option of question.options" [value]="option">{{option}}</mat-radio-button>
@@ -69,9 +80,6 @@
                                 
                               </mat-card>
                         </div>
-                        <span (click)="this.openDialog()" class="add tab">
-                            <i class="pi pi-plus-circle"></i>&nbsp; Add Question
-                        </span>
                     </div>
                 </div>
             </div>
