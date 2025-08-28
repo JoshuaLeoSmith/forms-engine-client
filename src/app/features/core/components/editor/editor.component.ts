@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit,inject, ViewChild, Pipe } from '@angular/core';
+import { Component, OnInit,inject, ViewChild, Pipe,ChangeDetectorRef } from '@angular/core';
 import { Step } from '../../models/step';
 import {FormBuilder, Validators, FormsModule, ReactiveFormsModule,FormGroup, FormArray,} from '@angular/forms';
 import {MatStepper, MatStepperModule} from '@angular/material/stepper'
@@ -42,6 +42,8 @@ export class EditorComponent {
 
   selectedTabIndex :number = 0;
 
+  showStepper = true;
+
 
   @ViewChild('stepper') stepper: MatStepper | undefined;
 
@@ -54,7 +56,7 @@ export class EditorComponent {
 
   dialogRef: MatDialogRef<QuestionDialogComponent> | undefined; 
 
-  constructor(private dialog:MatDialog){
+  constructor(private dialog:MatDialog,private cdr: ChangeDetectorRef){
     
   }
 
@@ -113,6 +115,14 @@ export class EditorComponent {
       }
     }
   }
+  
+  deleteQuestion(question: Question, sectionIndex: number){ 
+    const section = this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex].sections[sectionIndex];
+    section.questions = section.questions.filter(q => q.id !== question.id);
+    if(section.questions.length === 0) {
+      this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex].sections.splice(sectionIndex, 1);
+    }
+  }
 
   trackById(index: number, item: Tab): string {
     return item.id;
@@ -132,8 +142,8 @@ export class EditorComponent {
     let temp = this.steps[index];
     this.steps[index] = this.steps[index-1];
     this.steps[index-1] = temp;
-    this.stepper!.selectedIndex = index - 1;
-
+    // this.stepper!.selectedIndex = index - 1;
+    this.refreshStepper(index-1)
 
   }
 
@@ -145,8 +155,26 @@ export class EditorComponent {
     let temp = this.steps[index];
     this.steps[index] = this.steps[index+1];
     this.steps[index+1] = temp;
-    this.stepper!.selectedIndex = index +1;
+    // this.stepper!.selectedIndex = index +1;
+    this.refreshStepper(index+1);
   }
+
+refreshStepper(index: number) {
+  this.showStepper = false;
+  setTimeout(() => {
+    this.showStepper = true;
+    // Add a small delay to ensure the stepper is fully initialized
+    setTimeout(() => {
+      if (this.stepper) {
+        this.stepper.selectedIndex = index;
+      }
+    }, 0);
+  });
+}
+
+  trackByStepId(index: number, item: Step): string {
+  return item.id;
+}
 
 
   addTab(stepIndex:number){

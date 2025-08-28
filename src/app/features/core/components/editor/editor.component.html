@@ -2,8 +2,8 @@
     <i class="pi pi-plus-circle"></i>&nbsp; Add step
 </span>
 <div class="stepper-wrapper">
-    <mat-stepper class="mat-stepper" *ngIf="this.steps && this.steps.length > 0" [animationDuration]="'0ms'" [linear]="false" #stepper>
-        <mat-step *ngFor="let step of steps; index as i;" >
+    <mat-stepper class="mat-stepper" *ngIf="this.showStepper && this.steps && this.steps.length > 0" [animationDuration]="'0ms'" [linear]="false" #stepper>
+        <mat-step *ngFor="let step of steps; index as i;" [stepControl]="firstFormGroup">
 
             <ng-template matStepLabel>
                 {{ step.title ? step.title : "Step "+(i + 1) }} &nbsp;
@@ -60,7 +60,7 @@
                                             <div class="flex-container">
                                         
                                                 <mat-label class="ten-pix-bottom">{{question.prompt}}</mat-label>
-                                                <i (click)="deleteTab(j)" class="pi pi-trash red-hover"></i>
+                                                <i (click)="deleteQuestion(question, k)" class="pi pi-trash red-hover"></i>
 
                                             </div>
 
