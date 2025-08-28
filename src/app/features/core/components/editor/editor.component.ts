@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit,inject, ViewChild } from '@angular/core';
+import { Component, OnInit,inject, ViewChild, Pipe } from '@angular/core';
 import { Step } from '../../models/step';
 import {FormBuilder, Validators, FormsModule, ReactiveFormsModule,FormGroup, FormArray,} from '@angular/forms';
 import {MatStepper, MatStepperModule} from '@angular/material/stepper'
@@ -12,6 +12,7 @@ import { Tab } from '../../models/tab';
 import {MatCardModule} from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList,moveItemInArray} from '@angular/cdk/drag-drop';
+import { GroupQuestionsByRowPipe } from '../../pipes/group-questions-by-row.pipe';
 
 
 import {
@@ -29,7 +30,7 @@ import { Section } from '../../models/section';
 
 @Component({
   selector: 'app-editor',
-  imports: [CommonModule,MatCardModule,CdkDrag,CdkDropList,CdkDragHandle,MatRadioModule,MatTabsModule,MatInputModule ,MatListModule, FormsModule,MatStepperModule,MatFormFieldModule,ReactiveFormsModule],
+  imports: [CommonModule,MatCardModule,GroupQuestionsByRowPipe,CdkDrag,CdkDropList,CdkDragHandle,MatRadioModule,MatTabsModule,MatInputModule ,MatListModule, FormsModule,MatStepperModule,MatFormFieldModule, ReactiveFormsModule],
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.scss'
 })
@@ -77,25 +78,27 @@ export class EditorComponent {
     this.selectedTabIndex = event.currentIndex; // Update selected index
   }
 
-  openDialog() {
-    const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.width = '60vw'; 
-    dialogConfig.height = '80vh';
-    dialogConfig.maxWidth = 'none';
-    this.dialogRef = this.dialog.open(QuestionDialogComponent, dialogConfig);
-    this.dialogRef.afterClosed().subscribe(result => {
+
+  openDialog() {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.width = '60vw'; 
+  dialogConfig.height = '80vh';
+  dialogConfig.maxWidth = 'none';
+  this.dialogRef = this.dialog.open(QuestionDialogComponent, dialogConfig);
+  this.dialogRef.afterClosed().subscribe(result => {
     if (result) {
-      this.questions.push(result);
-      if(this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex].sections.filter(section=>section.title===result.section).length==0){
-        this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex].sections.push(new Section(crypto.randomUUID(), result.section, [result]));
-      }
-      else{
-        this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex].sections.filter(section=>section.title===result.section)[0].questions.push(result);
+      this.questions = [...this.questions, result]; // update reference
+      const tab = this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex];
+      let section = tab.sections.find(section => section.title === result.section);
+      if (!section) {
+        tab.sections.push(new Section(crypto.randomUUID(), result.section, [result]));
+      } else {
+        section.questions = [...section.questions, result]; // update reference
       }
     }
   });
-  }
+}
 
   ngOnInit() {
   }
@@ -112,6 +115,11 @@ export class EditorComponent {
   }
 
   trackById(index: number, item: Tab): string {
+    return item.id;
+
+  }
+
+    trackByQuestionId(index: number, item: Question): string {
     return item.id;
 
   }
