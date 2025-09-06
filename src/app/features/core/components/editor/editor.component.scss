@@ -189,3 +189,13 @@ i:hover{
   box-shadow: 0 2px 8px rgba(33, 150, 243, 0.08); // Gentle blue shadow
   transition: background 0.2s, border 0.2s, box-shadow 0.2s;
 }
+
+.half-width {
+  width: 50%;
+  flex-basis: 50%;
+}
+
+.full-width {
+  width: 100%;
+  flex-basis: 100%;
+}

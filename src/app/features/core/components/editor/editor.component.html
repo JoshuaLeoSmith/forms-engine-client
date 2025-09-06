@@ -2,7 +2,7 @@
     <i class="pi pi-plus-circle"></i>&nbsp; Add step
 </span>
 <div class="stepper-wrapper">
-    <mat-stepper class="mat-stepper" *ngIf="this.showStepper && this.steps && this.steps.length > 0" [animationDuration]="'0ms'" [linear]="false" #stepper>
+    <mat-stepper class="mat-stepper" *ngIf="this.showStepper && this.steps && this.steps.length > 0" [animationDuration]="'0ms'" [linear]="false" #stepper (selectionChange)="onStepChange($event)">
         <mat-step *ngFor="let step of steps; index as i;" [stepControl]="firstFormGroup">
 
             <ng-template matStepLabel>
@@ -28,9 +28,7 @@
                             </mat-list-item>
                             
                             <span class="delete-tab">
-                                <!-- <i (click)="moveTabUp(j)" class="pi pi-arrow-circle-up blue-hover"></i>-->
                                 <i (click)="deleteTab(j)" class="pi pi-trash red-hover"></i>
-                                <!-- <i (click)="moveTabDown(j)" class="pi pi-arrow-circle-down blue-hover"></i> --> 
                             </span>
                         </div>
                     </div>
@@ -54,9 +52,10 @@
                                   <mat-card-title *ngIf="section.showSectionTitle"> {{ section.title }}</mat-card-title>
                                 </mat-card-header>
                                 <mat-card-content style="margin-top: 20px;">
-                                    <ng-container *ngFor="let row of section.questions | groupQuestionsByRow">
-                                        <div class="flex-container">
-                                        <div *ngFor="let question of row">
+                                    <!-- <ng-container *ngFor="let row of section.questions | groupQuestionsByRow"> -->
+                                    <div class="flex-container">
+                                        <div *ngFor="let question of section.questions"
+                                        [class.half-width]="question.halfWidth" [class.full-width]="question.fullWidth">
                                             <div class="flex-container">
                                         
                                                 <mat-label class="ten-pix-bottom">{{question.prompt}}</mat-label>
@@ -77,7 +76,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    </ng-container>
+                                    <!-- </ng-container> -->
                                 </mat-card-content>
                                 
                               </mat-card>

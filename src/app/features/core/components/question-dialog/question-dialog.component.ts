@@ -26,8 +26,8 @@ export class QuestionDialogComponent {
   prompt:string = '';
   required:boolean = false;
   section:string = '';
-  newline:boolean = false;
-
+  halfWidth: boolean = false;
+  fullWidth: boolean = false;
   textBoxSize:string = 'small;'
 
   constructor(public dialogRef: MatDialogRef<QuestionDialogComponent>) {}
@@ -47,7 +47,8 @@ export class QuestionDialogComponent {
       this.section,
       this.required,
       this.textBoxSize,
-      this.newline
+      this.halfWidth,
+      this.fullWidth,
     );
     this.dialogRef.close(question);
   }

@@ -115,6 +115,10 @@ export class EditorComponent {
       }
     }
   }
+
+    onStepChange(event: any) {
+    this.selectedTabIndex = 0; // Reset selected tab index when step changes
+  }
   
   deleteQuestion(question: Question, sectionIndex: number){ 
     const section = this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex].sections[sectionIndex];
