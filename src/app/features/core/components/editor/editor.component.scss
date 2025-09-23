@@ -20,10 +20,7 @@ i{
   font-size:1.25rem;
 }
 
-i:hover{
-  cursor:pointer;
-  color:green;
-}
+
 .add-question-center {
   display: flex;
   justify-content: center;
@@ -39,6 +36,11 @@ i:hover{
 .red-hover:hover{
   cursor:pointer;
   color:red;
+}
+
+.yellow-hover:hover{
+  cursor:pointer;
+  color:rgb(235, 235, 190);
 }
 
 .mat-stepper{
@@ -199,3 +201,14 @@ i:hover{
   width: 100%;
   flex-basis: 100%;
 }
+
+.question-item {
+    // background: white;
+    // border: 1px solid #e0e0e0;
+    // border-radius: 8px;
+    // padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s;
+    // cursor: grab;
+}
+

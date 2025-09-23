@@ -11,7 +11,7 @@ import { MatTabGroup } from '@angular/material/tabs';
 import { Tab } from '../../models/tab';
 import {MatCardModule} from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
-import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList,moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList,moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { GroupQuestionsByRowPipe } from '../../pipes/group-questions-by-row.pipe';
 
 
@@ -82,24 +82,26 @@ export class EditorComponent {
 
 
 
-  openDialog() {
-  const dialogConfig = new MatDialogConfig();
-  dialogConfig.width = '60vw'; 
-  dialogConfig.height = '80vh';
-  dialogConfig.maxWidth = 'none';
-  this.dialogRef = this.dialog.open(QuestionDialogComponent, dialogConfig);
-  this.dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      this.questions = [...this.questions, result]; // update reference
-      const tab = this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex];
-      let section = tab.sections.find(section => section.title === result.section);
-      if (!section) {
-        tab.sections.push(new Section(crypto.randomUUID(), result.section, [result]));
-      } else {
-        section.questions = [...section.questions, result]; // update reference
-      }
-    }
-  });
+openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '60vw'; 
+    dialogConfig.height = '80vh';
+    dialogConfig.maxWidth = 'none';
+    this.dialogRef = this.dialog.open(QuestionDialogComponent, dialogConfig);
+    this.dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+            this.questions = [...this.questions, result];
+            const tab = this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex];
+            let section = tab.sections.find(section => section.title === result.section);
+            
+            if (!section) {
+                tab.sections.push(new Section(crypto.randomUUID(), result.section, [result]));
+            } else {
+                // Add to end of existing section
+                section.questions = [...section.questions, result];
+            }
+        }
+    });
 }
 
   ngOnInit() {
@@ -133,9 +135,20 @@ export class EditorComponent {
 
   }
 
-    trackByQuestionId(index: number, item: Question): string {
-    return item.id;
+  moveQuestionUp(question: Question, sectionIndex: number) {
+    const section = this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex].sections[sectionIndex];
+    const index = section.questions.findIndex(q => q.id === question.id);
+    if (index > 0) {
+      [section.questions[index - 1], section.questions[index]] = [section.questions[index], section.questions[index - 1]];
+    }
+  }
 
+  moveQuestionDown(question: Question, sectionIndex: number) {
+    const section = this.steps[this.stepper!.selectedIndex].tabs[this.selectedTabIndex].sections[sectionIndex];
+    const index = section.questions.findIndex(q => q.id === question.id);
+    if (index < section.questions.length - 1) {
+      [section.questions[index + 1], section.questions[index]] = [section.questions[index], section.questions[index + 1]];
+    }
   }
 
   shiftStepLeft(index: number){
@@ -229,6 +242,14 @@ refreshStepper(index: number) {
       this.selectedTabIndex = index + 1; // Update selected index
     }
   }
+
+
+
+// Enhanced track by function for better performance
+trackByQuestionId(index: number, item: Question): string {
+    return item.id + '_' + index; // Include index for better tracking during reorder
+}
+
 
 }
 
