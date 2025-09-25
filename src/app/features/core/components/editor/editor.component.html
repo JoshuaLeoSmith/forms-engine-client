@@ -54,14 +54,15 @@
                                 <mat-card-content style="margin-top: 20px;">
                                     <!-- <ng-container *ngFor="let row of section.questions | groupQuestionsByRow"> -->
                                     <div class="flex-container">
-                                        <div *ngFor="let question of section.questions; index as qIndex; trackBy: trackByQuestionId" class="question-item">
+                                        <div *ngFor="let question of section.questions; index as qIndex; trackBy: trackByQuestionId" class="question-item"
+                                            [class.half-width]="question.halfWidth" 
+                                            [class.full-width]="question.fullWidth">
                                             
                                             <div class="flex-container">
                                                 <mat-label class="ten-pix-bottom">{{question.prompt}}</mat-label>
                                                 <i (click)="deleteQuestion(question, k)" class="pi pi-trash red-hover"></i>
-                                                <i (click)="moveQuestionUp(question, k)" class="pi pi-arrow-circle-up yellow-hover"></i>
+                                                <i (click)="moveQuestionUp(question, k)" class="pi pi-arrow-circle-up yellow-nmhover"></i>
                                                 <i (click)="moveQuestionDown(question, k)" class="pi pi-arrow-circle-down yellow-hover"></i>
-
                                             </div>
 
                                             <div *ngIf="question.type=='radioButton'">

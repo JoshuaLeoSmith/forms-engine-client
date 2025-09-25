@@ -20,8 +20,8 @@
                 <mat-label>Prompt</mat-label>
                 <textarea required style="height: 200px" matInput [(ngModel)]="this.prompt" placeholder="What is your first name?"></textarea>
             </mat-form-field>
-            <mat-checkbox [(ngModel)]="this.halfWidth">Make question half width.</mat-checkbox>
-            <mat-checkbox [(ngModel)]="this.fullWidth">Make question full width.</mat-checkbox>
+            <mat-checkbox [(ngModel)]="this.halfWidth" [disabled]="this.fullWidth">Make question half width.</mat-checkbox>
+            <mat-checkbox [(ngModel)]="this.fullWidth" [disabled]="this.halfWidth">Make question full width.</mat-checkbox>
         </div>
         <div class="column">
             <mat-form-field appearance="outline">

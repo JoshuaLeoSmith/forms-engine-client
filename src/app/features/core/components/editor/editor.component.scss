@@ -193,13 +193,26 @@ i{
 }
 
 .half-width {
-  width: 50%;
-  flex-basis: 50%;
+    width: 50% !important;
+    flex-basis: 50% !important;
+    max-width: 50%;
+    box-sizing: border-box;
 }
 
 .full-width {
-  width: 100%;
-  flex-basis: 100%;
+    width: 100% !important;
+    flex-basis: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.question-item.half-width {
+    flex: 0 0 calc(50% - 1rem); /* Account for gap */
+}
+
+/* Full-width questions take entire row */
+.question-item.full-width {
+    flex: 0 0 100%;
 }
 
 .question-item {
